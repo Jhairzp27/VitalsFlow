@@ -1,3 +1,4 @@
+import contextlib
 import sqlite3
 import pandas as pd
 from pathlib import Path
@@ -15,13 +16,8 @@ class DatabaseManager:
 
     def get_all_records(self) -> pd.DataFrame:
         """Extrae los registros, aplica transformaciones iniciales y devuelve un DataFrame listo para analizar."""
-        conn = sqlite3.connect(self.db_path)
-        
-        query = "SELECT * FROM hospital_records"
-        df = pd.read_sql_query(query, conn)
-        conn.close()
-        
+        with contextlib.closing(sqlite3.connect(self.db_path)) as conn:
+            df = pd.read_sql_query("SELECT * FROM hospital_records", conn)
         df['Date of Admission'] = pd.to_datetime(df['Date of Admission'])
         df['Mes_Anio'] = df['Date of Admission'].dt.to_period('M').astype(str)
-        
         return df

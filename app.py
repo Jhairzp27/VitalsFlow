@@ -1,11 +1,12 @@
 import streamlit as st
+import pandas as pd
 from src.data_manager import DatabaseManager
 from src.visuals import Visualizer
 
 st.set_page_config(page_title="VitalsFlow | Operaciones", page_icon="🧑‍💻", layout="wide")
 
 @st.cache_data
-def load_data():
+def load_data() -> pd.DataFrame:
     db = DatabaseManager()
     return db.get_all_records()
 
@@ -23,12 +24,7 @@ st.sidebar.markdown("""
 st.sidebar.caption("Panel de Control Operativo")
 st.sidebar.divider()
 
-st.sidebar.markdown("### 🎨 Apariencia")
-tema = st.sidebar.radio("Tema", ["🌙 Modo Oscuro", "☀️ Modo Claro"], label_visibility="collapsed")
-plot_theme = "plotly_dark" if tema == "🌙 Modo Oscuro" else "plotly_white"
-viz = Visualizer(theme=plot_theme)
-
-st.sidebar.divider()
+viz = Visualizer(theme="plotly_white")
 
 st.sidebar.markdown("### 🎛️ Parámetros de Análisis")
 
@@ -42,12 +38,20 @@ rango_anios = st.sidebar.slider(
     value=(min_year, max_year)
 )
 
-condiciones = st.sidebar.multiselect("🩺 Condición Médica", df_raw['Medical Condition'].unique(), default=df_raw['Medical Condition'].unique())
-admisiones = st.sidebar.multiselect("🏥 Tipo de Admisión", df_raw['Admission Type'].unique(), default=df_raw['Admission Type'].unique())
+condiciones = st.sidebar.multiselect(
+    "🩺 Condición Médica",
+    options=df_raw['Medical Condition'].unique(),
+    default=df_raw['Medical Condition'].unique(),
+)
+admisiones = st.sidebar.multiselect(
+    "🏥 Tipo de Admisión",
+    options=df_raw['Admission Type'].unique(),
+    default=df_raw['Admission Type'].unique(),
+)
 
 st.sidebar.divider()
 st.sidebar.markdown("""
-    <div style='font-size: 13px; color: gray;'>
+    <div style='font-size: 13px; color: #94a3b8;'>
         <p>🟢 <b>Sistema En Línea</b><br>
         <i>Motor de datos activo y sincronizado.</i></p>
     </div>
@@ -110,8 +114,8 @@ with st.expander("💡 Ver Análisis de Costos y Hallazgo Crítico"):
 st.markdown("---")
 st.markdown("""
     <div style='text-align: center; color: gray; padding: 10px;'>
-        <p>👨‍💻 Desarrollado por <b>Tu Nombre Aquí</b> | Proyecto de Análisis de Datos de Extremo a Extremo</p>
-        <p>🔗 <a href='https://github.com/tu-usuario' target='_blank'>GitHub</a> | 
-        💼 <a href='https://linkedin.com/in/tu-usuario' target='_blank'>LinkedIn</a></p>
+        <p>👨‍💻 Desarrollado por <b>Jhair</b> | Proyecto de Análisis de Datos de Extremo a Extremo</p>
+        <p>🌐 <a href='https://jhair-zambrano.vercel.app/' target='_blank'>Mi Página Web</a> | 
+        💼 <a href='https://linkedin.com/in/gregoy-jhair-zambrano' target='_blank'>LinkedIn</a></p>
     </div>
 """, unsafe_allow_html=True)
