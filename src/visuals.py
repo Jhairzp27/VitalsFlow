@@ -4,7 +4,7 @@ import pandas as pd
 
 class Visualizer:
     """Capa de Visualización (View). Renderiza gráficos interactivos."""
-    
+
     def __init__(self, theme: str = "plotly_dark", bg_color: str = "rgba(0,0,0,0)"):
         self.theme = theme
         self.bg_color = bg_color
@@ -23,13 +23,13 @@ class Visualizer:
         
         fig.add_trace(go.Scatter(
             x=df_q1['Mes_Anio'], y=df_q1['Admisiones'], mode='lines+markers', 
-            name='Volumen Real', 
+            name='Volumen Real',
             line=dict(color='#00D26A', width=2, shape='spline')
         ))
         
         fig.add_trace(go.Scatter(
-            x=df_q1['Mes_Anio'], y=df_q1['Media_Movil'], mode='lines', 
-            name=f'Tendencia ({window} Meses)', 
+            x=df_q1['Mes_Anio'], y=df_q1['Media_Movil'], mode='lines',
+            name=f'Tendencia ({window} Meses)',
             line=dict(color='gray', width=2, dash='dash', shape='spline')
         ))
         

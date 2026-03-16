@@ -2,7 +2,7 @@ import streamlit as st
 from src.data_manager import DatabaseManager
 from src.visuals import Visualizer
 
-st.set_page_config(page_title="VitalsFlow | Operaciones", page_icon="✨", layout="wide")
+st.set_page_config(page_title="VitalsFlow | Operaciones", page_icon="🧑‍💻", layout="wide")
 
 @st.cache_data
 def load_data():
@@ -17,7 +17,7 @@ except Exception as e:
 
 st.sidebar.markdown("""
     <div style='display: flex; align-items: center; margin-bottom: 10px;'>
-        <h2 style='margin: 0; padding: 0;'>✨ VitalsFlow</h2>
+        <h2 style='margin: 0; padding: 0;'> VitalsFlow</h2>
     </div>
 """, unsafe_allow_html=True)
 st.sidebar.caption("Panel de Control Operativo")
@@ -36,9 +36,9 @@ min_year = int(df_raw['Date of Admission'].dt.year.min())
 max_year = int(df_raw['Date of Admission'].dt.year.max())
 
 rango_anios = st.sidebar.slider(
-    "📅 Rango Histórico", 
-    min_value=min_year, 
-    max_value=max_year, 
+    "📅 Rango Histórico",
+    min_value=min_year,
+    max_value=max_year,
     value=(min_year, max_year)
 )
 

@@ -5,6 +5,5 @@ __pycache__/
 .ipynb_checkpoints/
 
 # Data
-healthcare_warehouse.db
 .env
 .venv/
